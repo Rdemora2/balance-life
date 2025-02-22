@@ -1,41 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Activity, Users, Award, Calendar } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Activity, Users, Award, Calendar } from "lucide-react";
 
 const services = [
   {
-    id: 'slackline',
-    title: 'Slackline',
+    id: "slackline",
+    title: "Slackline",
     icon: Activity,
-    description: 'Desenvolva equilíbrio, força e concentração através da prática do slackline. Aulas para todos os níveis.',
-    image: 'https://images.unsplash.com/photo-1516687401797-25297ff1462c?auto=format&fit=crop&q=80',
+    description:
+      "Desenvolva equilíbrio, força e concentração através da prática do slackline. Aulas para todos os níveis.",
+    image:
+      "https://images.unsplash.com/photo-1516687401797-25297ff1462c?auto=format&fit=crop&q=80",
   },
   {
-    id: 'balance-board',
-    title: 'Balance Board',
+    id: "balance-board",
+    title: "Balance Board",
     icon: Users,
-    description: 'Treinamento especializado com balance board para melhorar equilíbrio e coordenação motora.',
-    image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80',
+    description:
+      "Treinamento especializado com balance board para melhorar equilíbrio e coordenação motora.",
+    image:
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80",
   },
   {
-    id: 'parkour',
-    title: 'Parkour',
+    id: "parkour",
+    title: "Parkour",
     icon: Award,
-    description: 'Aprenda a se movimentar com eficiência e segurança, superando obstáculos urbanos.',
-    image: 'https://images.unsplash.com/photo-1518611507436-f9221403cca2?auto=format&fit=crop&q=80',
+    description:
+      "Aprenda a se movimentar com eficiência e segurança, superando obstáculos urbanos.",
+    image:
+      "https://images.unsplash.com/photo-1518611507436-f9221403cca2?auto=format&fit=crop&q=80",
   },
   {
-    id: 'eventos',
-    title: 'Recreação em Eventos',
+    id: "eventos",
+    title: "Recreação em Eventos",
     icon: Calendar,
-    description: 'Atividades recreativas e esportivas para eventos corporativos, festas e encontros.',
-    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80',
+    description:
+      "Atividades recreativas e esportivas para eventos corporativos, festas e encontros.",
+    image:
+      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80",
   },
 ];
 
 const Services = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-28">
       <h1 className="text-4xl font-bold text-center mb-12">Nossos Serviços</h1>
       <div className="grid md:grid-cols-2 gap-8">
         {services.map((service) => {
@@ -60,7 +68,9 @@ const Services = () => {
                 <h2 className="text-2xl font-semibold mb-3">{service.title}</h2>
                 <p className="text-gray-600">{service.description}</p>
                 <div className="mt-4 flex justify-end">
-                  <span className="text-indigo-600 font-medium">Saiba mais →</span>
+                  <span className="text-indigo-600 font-medium">
+                    Saiba mais →
+                  </span>
                 </div>
               </div>
             </Link>
