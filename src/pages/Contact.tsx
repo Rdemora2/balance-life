@@ -177,7 +177,7 @@ const Contact: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center">
               <Phone className="h-6 w-6 text-gray-900 mr-3" />
-              <span>(11) 95245-4101</span>
+              <span>(11) 95245-4104</span>
             </div>
             <div className="flex items-center">
               <Mail className="h-6 w-6 text-gray-900 mr-3" />
