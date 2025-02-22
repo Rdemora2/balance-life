@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Activity, Users, Award, Calendar } from "lucide-react";
 
 const services = [
@@ -41,43 +42,88 @@ const services = [
   },
 ];
 
-const Services = () => {
+// Variáveis de animação
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const Services: React.FC = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-28">
-      <h1 className="text-4xl font-bold text-center mb-12">Nossos Serviços</h1>
-      <div className="grid md:grid-cols-2 gap-8">
-        {services.map((service) => {
+    <motion.div
+      className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-28"
+      initial="hidden"
+      animate="visible"
+      variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
+    >
+      <motion.h1
+        className="text-5xl font-extrabold text-center mb-16 text-gray-900"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        Nossos Serviços
+      </motion.h1>
+
+      {/* Grade agora com 2 colunas para visual mais equilibrado */}
+      <motion.div className="grid sm:grid-cols-1 md:grid-cols-2 gap-12">
+        {services.map((service, index) => {
           const Icon = service.icon;
+
           return (
-            <Link
+            <motion.div
               key={service.id}
-              to={`/service/${service.id}`}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              variants={cardVariants}
+              whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
             >
-              <div className="h-64 relative">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                  <Icon className="w-16 h-16 text-white" />
+              <Link
+                to={`/service/${service.id}`}
+                className="group block bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                aria-label={`Saiba mais sobre ${service.title}`}
+              >
+                {/* Imagem padronizada */}
+                <div className="h-64 relative overflow-hidden">
+                  <motion.img
+                    src={service.image}
+                    alt={service.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:opacity-80 transition-opacity duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:opacity-90 transition-opacity duration-500">
+                    <motion.div whileHover={{ scale: 1.2, y: -5 }}>
+                      <Icon className="w-16 h-16 text-white" />
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
-              <div className="p-6">
-                <h2 className="text-2xl font-semibold mb-3">{service.title}</h2>
-                <p className="text-gray-600">{service.description}</p>
-                <div className="mt-4 flex justify-end">
-                  <span className="text-indigo-600 font-medium">
-                    Saiba mais →
-                  </span>
+
+                {/* Conteúdo padronizado */}
+                <div className="p-8 flex flex-col justify-between h-[320px]">
+                  <h2 className="text-3xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                    {service.title}
+                  </h2>
+                  <p className="text-lg text-gray-600 flex-1">
+                    {service.description}
+                  </p>
+                  <div className="mt-6 flex justify-end">
+                    <motion.span
+                      className="text-blue-500 font-medium group-hover:text-blue-700 transition-colors duration-300"
+                      whileHover={{ x: 5 }}
+                    >
+                      Saiba mais →
+                    </motion.span>
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </motion.div>
           );
         })}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
