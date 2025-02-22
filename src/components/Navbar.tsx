@@ -94,6 +94,7 @@ const Navbar = () => {
                            ? "text-white hover:text-gray-200"
                            : "text-gray-700 hover:text-rose-500"
                        }`}
+              aria-label="Abrir menu"
             >
               <Menu className="h-6 w-6" />
             </button>
