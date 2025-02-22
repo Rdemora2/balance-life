@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
@@ -7,9 +7,10 @@ const images = [
   "https://i.ibb.co/qF1CwKBj/Imagem-do-Whats-App-de-2025-02-21-s-22-11-10-b65b045c.jpg",
 ];
 
-const ImageCarousel = () => {
+const ImageCarousel: React.FC = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const nextSlide = useCallback(() => {
     setCurrentImage((prev) => (prev + 1) % images.length);
@@ -21,9 +22,11 @@ const ImageCarousel = () => {
 
   useEffect(() => {
     if (!isPaused) {
-      const timer = setInterval(nextSlide, 5000);
-      return () => clearInterval(timer);
+      intervalRef.current = setInterval(nextSlide, 5000);
     }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [isPaused, nextSlide]);
 
   return (
@@ -31,23 +34,23 @@ const ImageCarousel = () => {
       className="relative h-[85vh] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      aria-label="Carrossel de imagens"
     >
-      <div
-        className="absolute inset-0 flex transition-transform duration-1000 ease-in-out"
-        style={{ transform: `translateX(-${currentImage * 100}%)` }}
-      >
-        {images.map((image, index) => (
-          <div key={index} className="w-full flex-shrink-0">
-            <img
-              src={image}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-full object-fill object-bottom"
-            />
-          </div>
-        ))}
-      </div>
+      {/* Imagens do Carrossel */}
+      {images.map((image, index) => (
+        <img
+          key={index}
+          src={image}
+          alt={`Slide ${index + 1}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+            index === currentImage ? "opacity-100" : "opacity-0"
+          }`}
+          loading="lazy"
+          aria-hidden={index !== currentImage}
+        />
+      ))}
 
-      {/* Degradê e Blur - Agora abaixo dos botões */}
+      {/* Degradê e Blur */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent pointer-events-none z-10"></div>
 
       {/* Botões de Navegação */}
