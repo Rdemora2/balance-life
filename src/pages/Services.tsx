@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Activity, Users, Award, Calendar } from "lucide-react";
@@ -54,6 +54,10 @@ const cardVariants = {
 };
 
 const Services: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <motion.div
       className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-28"
