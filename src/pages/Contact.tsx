@@ -177,7 +177,7 @@ const Contact: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center">
               <Phone className="h-6 w-6 text-gray-900 mr-3" />
-              <span>(XX) XXXXX-XXXX</span>
+              <span>(11) 95245-4101</span>
             </div>
             <div className="flex items-center">
               <Mail className="h-6 w-6 text-gray-900 mr-3" />
@@ -192,7 +192,7 @@ const Contact: React.FC = () => {
           {/* Botão para WhatsApp */}
           <div className="mt-8 text-center">
             <a
-              href="https://wa.me/SEUNUMEROAQUI"
+              href="https://wa.me/5511952454104"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition-all"
