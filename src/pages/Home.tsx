@@ -35,7 +35,6 @@ const services = [
   },
 ];
 
-// Variantes de animação
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -56,16 +55,23 @@ const Home = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <div className="relative">
-        <ImageCarousel />
+        <div className="relative">
+          <ImageCarousel />
+          {/* Camada de degradê para melhorar a visibilidade */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent"></div>
+          {/* Efeito de blur sutil para tornar a leitura mais confortável */}
+          <div className="absolute inset-0 backdrop-blur-sm"></div>
+        </div>
+
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto w-full container-padding">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeInLeft}
-              className="max-w-xl"
+              className="max-w-xl text-white"
             >
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
                 Descubra o Poder do Equilíbrio
               </h1>
               <p className="text-xl text-white/90 mb-8 leading-relaxed">
