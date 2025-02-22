@@ -1,12 +1,33 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpCircle } from "lucide-react";
+import { ArrowUpCircle, CheckCircle } from "lucide-react";
 import ImageCarousel from "../components/ImageCarousel";
 
 const fadeInLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  hidden: { opacity: 0, x: -80 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 80 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.2, delayChildren: 0.3 },
+  },
+};
+
+const scaleEffect = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
 };
 
 const Home: React.FC = () => {
@@ -28,25 +49,25 @@ const Home: React.FC = () => {
         id: "slackline",
         title: "Slackline",
         description:
-          "Aprenda a arte do equilíbrio e desenvolva força e concentração.",
+          "Aprenda a arte do equilíbrio e desenvolva força e concentração. Método progressivo para todas as idades.",
       },
       {
         id: "balance-board",
         title: "Balance Board",
         description:
-          "Melhore seu equilíbrio e coordenação com treinos personalizados.",
+          "Melhore seu equilíbrio e coordenação com treinos personalizados, ideais para atletas e reabilitação.",
       },
       {
         id: "parkour",
         title: "Parkour",
         description:
-          "Supere obstáculos e desenvolva agilidade com técnicas seguras.",
+          "Supere obstáculos com segurança e desenvolva agilidade e confiança para qualquer desafio urbano.",
       },
       {
         id: "eventos",
         title: "Recreação em Eventos",
         description:
-          "Atividades dinâmicas e divertidas para todos os tipos de eventos.",
+          "Atividades interativas e dinâmicas para eventos corporativos, festas e encontros ao ar livre.",
       },
     ],
     []
@@ -54,31 +75,28 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section com Carrossel */}
       <div className="relative">
         <ImageCarousel />
-        {/* Blur mais leve e degradê reduzido */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-transparent backdrop-blur-sm pointer-events-none z-10"></div>
 
-        {/* Texto do Carrossel */}
         <div className="absolute inset-0 flex items-center z-30 pointer-events-none">
           <div className="max-w-7xl mx-auto w-full container-padding">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeInLeft}
-              className="max-w-xl text-white"
+              className="max-w-lg text-white"
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Descubra o Poder do Equilíbrio
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                Equilíbrio. Desafio. Evolução.
               </h1>
-              <p className="text-xl mb-8 leading-relaxed">
+              <p className="text-lg md:text-xl mb-6 leading-relaxed">
                 Transforme sua vida através do movimento e da consciência
-                corporal com aulas personalizadas e experiências únicas.
+                corporal com treinos personalizados.
               </p>
               <Link
                 to="/contact"
-                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-lg transition pointer-events-auto"
+                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg transition transform hover:scale-105 pointer-events-auto"
               >
                 Comece Sua Jornada
               </Link>
@@ -87,63 +105,83 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Botão de Voltar ao Topo */}
       {showScrollTop && (
-        <button
+        <motion.button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 bg-blue-500 p-3 rounded-full text-white shadow-lg hover:bg-blue-600 transition z-40 pointer-events-auto"
+          className="fixed bottom-6 right-6 bg-blue-600 p-3 rounded-full text-white shadow-lg hover:bg-blue-700 transition z-40"
           aria-label="Voltar ao topo"
+          whileHover={{ scale: 1.2 }}
+          transition={{ duration: 0.3 }}
         >
           <ArrowUpCircle size={32} />
-        </button>
+        </motion.button>
       )}
 
-      {/* Serviços */}
-      <section className="section-padding bg-gray-50">
-        <div className="max-w-7xl mx-auto container-padding">
+      <section className="py-20 bg-white">
+        <motion.div
+          className="max-w-7xl mx-auto px-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
           <motion.h2
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
+            className="text-4xl font-bold text-center mb-12 text-gray-900"
+            variants={fadeInUp}
+          >
+            Por que Escolher a Balance Life?
+          </motion.h2>
+          <motion.div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              "Treinamento 100% personalizado",
+              "Instrutores certificados e experientes",
+              "Aulas seguras e progressivas",
+              "Método validado por especialistas",
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                className="flex items-center space-x-4 p-4 rounded-lg shadow-md bg-gray-50 hover:bg-blue-50 transition-all"
+                variants={scaleEffect}
+              >
+                <CheckCircle className="w-8 h-8 text-blue-600" />
+                <p className="text-lg text-gray-700">{item}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </section>
+
+      <section className="py-16 bg-gray-50">
+        <motion.div
+          className="max-w-7xl mx-auto px-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+        >
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900"
+            variants={fadeInUp}
           >
             Nossos Serviços
           </motion.h2>
-          <motion.p
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-gray-600 text-center max-w-2xl mx-auto mb-12"
-          >
-            Oferecemos uma variedade de atividades para desenvolver seu
-            equilíbrio, força e confiança através de métodos comprovados e
-            seguros.
-          </motion.p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={service.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="card"
+                className="bg-white rounded-xl shadow-lg overflow-hidden p-8 hover:shadow-2xl transition-all duration-500"
+                variants={scaleEffect}
               >
-                <Link
-                  to={`/service/${service.id}`}
-                  className="pointer-events-auto"
-                >
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600">{service.description}</p>
-                  </div>
+                <Link to={`/service/${service.id}`} className="block">
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600">{service.description}</p>
                 </Link>
               </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
     </div>
   );
