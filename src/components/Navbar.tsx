@@ -1,31 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${
-      isScrolled ? 'bg-white/90 backdrop-blur-md' : 'bg-transparent'
-    }`}>
+    <nav
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        isHome && !isScrolled
+          ? "bg-transparent"
+          : "bg-white/90 backdrop-blur-md"
+      }`}
+    >
       <div className="max-w-7xl mx-auto container-padding">
         <div className="flex justify-between h-20">
           <div className="flex">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className={`flex-shrink-0 flex items-center transition-colors duration-300 ${
-                isScrolled ? 'text-rose-500' : 'text-white'
+                isHome && !isScrolled ? "text-white" : "text-rose-500"
               }`}
             >
               <span className="text-2xl font-bold hover-scale inline-block">
@@ -33,30 +39,46 @@ const Navbar = () => {
               </span>
             </Link>
           </div>
-          
+
           {/* Desktop Menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-8">
-            <Link 
-              to="/" 
-              className={`nav-link ${isScrolled ? 'text-gray-700 hover:text-rose-500' : ''}`}
+            <Link
+              to="/"
+              className={`nav-link ${
+                isHome && !isScrolled
+                  ? "text-white"
+                  : "text-gray-700 hover:text-rose-500"
+              }`}
             >
               Home
             </Link>
-            <Link 
-              to="/services" 
-              className={`nav-link ${isScrolled ? 'text-gray-700 hover:text-rose-500' : ''}`}
+            <Link
+              to="/services"
+              className={`nav-link ${
+                isHome && !isScrolled
+                  ? "text-white"
+                  : "text-gray-700 hover:text-rose-500"
+              }`}
             >
               Serviços
             </Link>
-            <Link 
-              to="/about" 
-              className={`nav-link ${isScrolled ? 'text-gray-700 hover:text-rose-500' : ''}`}
+            <Link
+              to="/about"
+              className={`nav-link ${
+                isHome && !isScrolled
+                  ? "text-white"
+                  : "text-gray-700 hover:text-rose-500"
+              }`}
             >
               Sobre Nós
             </Link>
-            <Link 
-              to="/contact" 
-              className={`nav-link ${isScrolled ? 'text-gray-700 hover:text-rose-500' : ''}`}
+            <Link
+              to="/contact"
+              className={`nav-link ${
+                isHome && !isScrolled
+                  ? "text-white"
+                  : "text-gray-700 hover:text-rose-500"
+              }`}
             >
               Fale Conosco
             </Link>
@@ -68,7 +90,9 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
               className={`inline-flex items-center justify-center p-2 rounded-md
                        transition-colors duration-300 ${
-                         isScrolled ? 'text-gray-700 hover:text-rose-500' : 'text-white hover:text-gray-200'
+                         isHome && !isScrolled
+                           ? "text-white hover:text-gray-200"
+                           : "text-gray-700 hover:text-rose-500"
                        }`}
             >
               <Menu className="h-6 w-6" />
