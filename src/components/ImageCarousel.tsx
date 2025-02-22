@@ -36,7 +36,6 @@ const ImageCarousel: React.FC = () => {
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Carrossel de imagens"
     >
-      {/* Imagens do Carrossel */}
       {images.map((image, index) => (
         <img
           key={index}
@@ -50,10 +49,8 @@ const ImageCarousel: React.FC = () => {
         />
       ))}
 
-      {/* Degradê e Blur */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent pointer-events-none z-10"></div>
 
-      {/* Botões de Navegação */}
       <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-3 rounded-full text-white hover:bg-black/70 transition z-20 pointer-events-auto"
@@ -68,20 +65,6 @@ const ImageCarousel: React.FC = () => {
       >
         <ChevronRight size={24} />
       </button>
-
-      {/* Indicadores (Dots) */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-20 pointer-events-auto">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentImage ? "bg-blue-500 w-4" : "bg-white/50"
-            }`}
-            onClick={() => setCurrentImage(index)}
-            aria-label={`Ir para slide ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   );
 };
