@@ -1,7 +1,15 @@
-import React, { useState } from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  MessageCircle,
+  ArrowUpCircle,
+} from "lucide-react";
 
-const Contact = () => {
+const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -9,9 +17,21 @@ const Contact = () => {
     message: "",
   });
 
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Define o scroll no topo ao acessar a página
+
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aqui você pode adicionar a lógica para enviar o formulário
     console.log(formData);
   };
 
@@ -25,12 +45,43 @@ const Contact = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h1 className="text-4xl font-bold text-center mb-12">Fale Conosco</h1>
+    <motion.div
+      className="min-h-screen bg-gray-50 text-gray-900"
+      initial="hidden"
+      animate="visible"
+      variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
+    >
+      {/* Título reposicionado com mais espaçamento superior */}
+      <div className="relative max-w-4xl mx-auto text-center pt-28 pb-8">
+        <motion.h1
+          className="text-5xl font-extrabold"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Fale Conosco
+        </motion.h1>
+        <motion.p
+          className="mt-3 text-lg text-gray-600"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Estamos aqui para te ajudar. Entre em contato conosco e tire suas
+          dúvidas!
+        </motion.p>
+      </div>
 
-      <div className="grid lg:grid-cols-2 gap-12">
-        <div>
-          <h2 className="text-2xl font-semibold mb-6">Entre em Contato</h2>
+      {/* Contato e Formulário */}
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 pb-16 grid md:grid-cols-2 gap-12">
+        {/* Formulário */}
+        <motion.div
+          className="bg-white shadow-lg rounded-xl p-10"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-2xl font-semibold mb-6">Envie uma mensagem</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
@@ -45,7 +96,8 @@ const Contact = () => {
                 id="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                required
               />
             </div>
 
@@ -62,7 +114,8 @@ const Contact = () => {
                 id="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                required
               />
             </div>
 
@@ -79,7 +132,8 @@ const Contact = () => {
                 id="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                required
               />
             </div>
 
@@ -96,48 +150,69 @@ const Contact = () => {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                required
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition-colors"
+              className="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
             >
-              Enviar Mensagem
+              <Send size={18} /> Enviar Mensagem
             </button>
           </form>
-        </div>
+        </motion.div>
 
-        <div>
+        {/* Informações de Contato */}
+        <motion.div
+          className="bg-white shadow-lg rounded-xl p-10"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-2xl font-semibold mb-6">
-            Informações de Contato
+            Outras formas de contato
           </h2>
           <div className="space-y-6">
             <div className="flex items-center">
-              <Phone className="h-6 w-6 text-indigo-600 mr-3" />
+              <Phone className="h-6 w-6 text-gray-900 mr-3" />
               <span>(XX) XXXXX-XXXX</span>
             </div>
             <div className="flex items-center">
-              <Mail className="h-6 w-6 text-indigo-600 mr-3" />
+              <Mail className="h-6 w-6 text-gray-900 mr-3" />
               <span>contato@balancelife.com.br</span>
             </div>
             <div className="flex items-center">
-              <MapPin className="h-6 w-6 text-indigo-600 mr-3" />
+              <MapPin className="h-6 w-6 text-gray-900 mr-3" />
               <span>São Paulo, SP</span>
             </div>
           </div>
 
-          <div className="mt-8">
-            <h3 className="text-xl font-semibold mb-4">
-              Horário de Atendimento
-            </h3>
-            <p>Segunda a Sexta: 8h às 20h</p>
-            <p>Sábados: 9h às 18h</p>
+          {/* Botão para WhatsApp */}
+          <div className="mt-8 text-center">
+            <a
+              href="https://wa.me/SEUNUMEROAQUI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition-all"
+            >
+              <MessageCircle size={20} /> Conversar no WhatsApp
+            </a>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+
+      {/* Botão de Voltar ao Topo */}
+      {showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-6 right-6 bg-gray-900 p-3 rounded-full text-white shadow-lg hover:bg-gray-800 transition z-40"
+        >
+          <ArrowUpCircle size={32} />
+        </button>
+      )}
+    </motion.div>
   );
 };
 
