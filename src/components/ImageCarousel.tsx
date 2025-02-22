@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
-  "https://images.unsplash.com/photo-1516687401797-25297ff1462c?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1518611507436-f9221403cca2?auto=format&fit=crop&q=80",
+  "https://ibb.co/TBPf8SJd",
+  "https://ibb.co/BSK06sF",
+  "https://ibb.co/4gN2xzWt",
 ];
 
 const ImageCarousel = () => {
