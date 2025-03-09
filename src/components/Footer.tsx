@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
         </div>
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400">
-            © 2024 Balance Life. Todos os direitos reservados.
+            © 2025 Balance Life. Todos os direitos reservados.
           </p>
           <div className="flex items-center mt-4 md:mt-0">
             <span className="text-gray-400">Desenvolvido por</span>
