@@ -1,9 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Activity, Users, Award, Calendar } from "lucide-react";
+import {
+  Activity,
+  Users,
+  Award,
+  Calendar,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
-const services = {
+// Definindo tipos para as subcategorias e serviços
+interface Subcategory {
+  title: string;
+  description: string;
+}
+
+interface Service {
+  title: string;
+  icon: React.ElementType;
+  description: string;
+  benefits: string[];
+  experience: string;
+  quote: string;
+  image: string;
+  subcategories?: Subcategory[]; // Subcategorias são opcionais
+}
+
+// Lista de serviços
+const services: Record<string, Service> = {
   slackline: {
     title: "Slackline",
     icon: Activity,
@@ -20,6 +45,38 @@ const services = {
     quote: "Desafie seus limites, um passo de cada vez.",
     image:
       "https://images.unsplash.com/photo-1516687401797-25297ff1462c?auto=format&w=2000&q=80",
+    subcategories: [
+      {
+        title: "Slackline Básico",
+        description:
+          "Aprenda os fundamentos do slackline, incluindo a montagem do equipamento, postura correta e técnicas básicas de equilíbrio.",
+      },
+      {
+        title: "Slackline Intermediário",
+        description:
+          "Domine técnicas avançadas de equilíbrio, como caminhar de costas, girar e recuperar o equilíbrio após quedas.",
+      },
+      {
+        title: "Slackline Avançado",
+        description:
+          "Explore manobras desafiadoras, como saltos, giros e combinações de movimentos, para elevar sua prática a um novo nível.",
+      },
+      {
+        title: "Yogaline",
+        description:
+          "Combine yoga e slackline para melhorar flexibilidade, equilíbrio e concentração, realizando posturas desafiadoras na fita.",
+      },
+      {
+        title: "Longline",
+        description:
+          "Pratique em fitas longas (acima de 30m) para desenvolver resistência, foco e controle em distâncias maiores.",
+      },
+      {
+        title: "Trickline",
+        description:
+          "Aprenda manobras acrobáticas e dinâmicas, como saltos mortais e giros, para dominar o lado mais espetacular do slackline.",
+      },
+    ],
   },
   "balance-board": {
     title: "Balance Board",
@@ -74,6 +131,50 @@ const services = {
   },
 };
 
+// Componente de Subcategorias (Accordion)
+interface SubcategoriesAccordionProps {
+  subcategories?: Subcategory[]; // Subcategorias são opcionais
+}
+
+const SubcategoriesAccordion: React.FC<SubcategoriesAccordionProps> = ({
+  subcategories,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  if (!subcategories || subcategories.length === 0) return null; // Não renderiza se não houver subcategorias
+
+  return (
+    <div className="mt-6">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-between w-full text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors"
+      >
+        <span>Subcategorias</span>
+        {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+      </button>
+
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mt-4 space-y-4"
+        >
+          {subcategories.map((subcategory, index) => (
+            <div key={index} className="p-4 bg-gray-50 rounded-lg">
+              <h3 className="text-xl font-semibold text-gray-900">
+                {subcategory.title}
+              </h3>
+              <p className="mt-2 text-gray-600">{subcategory.description}</p>
+            </div>
+          ))}
+        </motion.div>
+      )}
+    </div>
+  );
+};
+
+// Componente Principal
 const ServiceDetail: React.FC = () => {
   const { id } = useParams();
   const service = services[id as keyof typeof services];
@@ -139,6 +240,10 @@ const ServiceDetail: React.FC = () => {
             ))}
           </ul>
           <p className="mt-8 text-lg italic">{service.experience}</p>
+
+          {/* Subcategorias (se houver) */}
+          <SubcategoriesAccordion subcategories={service.subcategories} />
+
           <div className="mt-12 text-center">
             <Link
               to="/contact"
