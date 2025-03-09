@@ -1,6 +1,6 @@
 # Balance Life
 
-![Balance Life Banner](https://i.ibb.co/7NG7tRcN/print.jpg)
+![Balance Life](https://i.ibb.co/7NG7tRcN/print.jpg)
 
 **Balance Life** é o site oficial de uma empresa especializada em esportes radicais e atividades que promovem o equilíbrio e o movimento. A plataforma oferece informações sobre serviços como slackline, balance board, parkour e recreação em eventos, além de facilitar o contato com a empresa. Desenvolvido com **React, Tailwind CSS e Framer Motion**, o site combina performance, design moderno e interatividade para proporcionar uma experiência única aos usuários.
 
