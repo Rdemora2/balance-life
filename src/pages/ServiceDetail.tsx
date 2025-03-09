@@ -10,13 +10,13 @@ import {
   ChevronUp,
 } from "lucide-react";
 
-// Definindo tipos para as subcategorias e serviços
 interface Subcategory {
   title: string;
   description: string;
 }
 
 interface Service {
+  id: number;
   title: string;
   icon: React.ElementType;
   description: string;
@@ -24,12 +24,12 @@ interface Service {
   experience: string;
   quote: string;
   image: string;
-  subcategories?: Subcategory[]; // Subcategorias são opcionais
+  subcategories?: Subcategory[];
 }
 
-// Lista de serviços
-const services: Record<string, Service> = {
-  slackline: {
+const services: Service[] = [
+  {
+    id: 1,
     title: "Slackline",
     icon: Activity,
     description:
@@ -78,7 +78,8 @@ const services: Record<string, Service> = {
       },
     ],
   },
-  "balance-board": {
+  {
+    id: 2,
     title: "Balance Board",
     icon: Users,
     description:
@@ -95,7 +96,8 @@ const services: Record<string, Service> = {
     image:
       "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&w=2000&q=80",
   },
-  parkour: {
+  {
+    id: 3,
     title: "Parkour",
     icon: Award,
     description:
@@ -112,7 +114,8 @@ const services: Record<string, Service> = {
     image:
       "https://images.unsplash.com/photo-1518611507436-f9221403cca2?auto=format&w=2000&q=80",
   },
-  eventos: {
+  {
+    id: 4,
     title: "Recreação em Eventos",
     icon: Calendar,
     description:
@@ -129,11 +132,10 @@ const services: Record<string, Service> = {
     image:
       "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&w=2000&q=80",
   },
-};
+];
 
-// Componente de Subcategorias (Accordion)
 interface SubcategoriesAccordionProps {
-  subcategories?: Subcategory[]; // Subcategorias são opcionais
+  subcategories?: Subcategory[];
 }
 
 const SubcategoriesAccordion: React.FC<SubcategoriesAccordionProps> = ({
@@ -141,7 +143,7 @@ const SubcategoriesAccordion: React.FC<SubcategoriesAccordionProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!subcategories || subcategories.length === 0) return null; // Não renderiza se não houver subcategorias
+  if (!subcategories || subcategories.length === 0) return null;
 
   return (
     <div className="mt-6">
@@ -149,7 +151,7 @@ const SubcategoriesAccordion: React.FC<SubcategoriesAccordionProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between w-full text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors"
       >
-        <span>Subcategorias</span>
+        <span>Modalidades:</span>
         {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
       </button>
 
@@ -174,13 +176,19 @@ const SubcategoriesAccordion: React.FC<SubcategoriesAccordionProps> = ({
   );
 };
 
-// Componente Principal
 const ServiceDetail: React.FC = () => {
-  const { id } = useParams();
-  const service = services[id as keyof typeof services];
+  const { id } = useParams<{ id: string }>();
+  if (!id) {
+    return (
+      <div className="text-center py-20 text-2xl font-bold text-gray-600">
+        ID do serviço não encontrado.
+      </div>
+    );
+  }
+  const serviceId = parseInt(id, 10);
+  const service = services.find((s) => s.id === serviceId);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Reseta o scroll ao abrir a página
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

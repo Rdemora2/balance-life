@@ -3,9 +3,19 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Activity, Users, Award, Calendar } from "lucide-react";
 
-const services = [
+// Definindo tipos para os serviços
+interface Service {
+  id: number; // ID agora é um número
+  title: string;
+  icon: React.ElementType;
+  description: string;
+  image: string;
+}
+
+// Lista de serviços
+const services: Service[] = [
   {
-    id: "slackline",
+    id: 1, // ID numérico
     title: "Slackline",
     icon: Activity,
     description:
@@ -14,7 +24,7 @@ const services = [
       "https://images.unsplash.com/photo-1516687401797-25297ff1462c?auto=format&fit=crop&w=800&q=80",
   },
   {
-    id: "balance-board",
+    id: 2,
     title: "Balance Board",
     icon: Users,
     description:
@@ -23,7 +33,7 @@ const services = [
       "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80",
   },
   {
-    id: "parkour",
+    id: 3,
     title: "Parkour",
     icon: Award,
     description:
@@ -32,7 +42,7 @@ const services = [
       "https://images.unsplash.com/photo-1518611507436-f9221403cca2?auto=format&fit=crop&w=800&q=80",
   },
   {
-    id: "eventos",
+    id: 4,
     title: "Recreação em Eventos",
     icon: Calendar,
     description:
@@ -76,7 +86,7 @@ const Services: React.FC = () => {
 
       {/* Grid responsivo aprimorado */}
       <motion.div className="grid sm:grid-cols-1 md:grid-cols-2 gap-12">
-        {services.map((service, index) => {
+        {services.map((service) => {
           const Icon = service.icon;
           const [isLoaded, setIsLoaded] = useState(false);
 
@@ -87,7 +97,7 @@ const Services: React.FC = () => {
               whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
             >
               <Link
-                to={`/service/${service.id}`}
+                to={`/service/${service.id}`} // Usando ID numérico na rota
                 className="group block bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
                 aria-label={`Saiba mais sobre ${service.title}`}
               >
