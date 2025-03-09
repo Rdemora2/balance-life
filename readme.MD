@@ -1,14 +1,14 @@
 # Balance Life
 
-![Balance Life Banner](https://i.ibb.co/BVTpZxvF/Imagem-do-Whats-App-de-2025-02-21-s-22-11-12-1527fdbd.jpg)
+![Balance Life Banner](https://i.ibb.co/jmTfHNV/Captura-de-tela-2025-03-09-135529.png)
 
-**Balance Life** é uma plataforma dedicada a transformar vidas através do movimento e do equilíbrio. A empresa oferece serviços como slackline, balance board, parkour e recreação em eventos, com foco em treinamentos personalizados e experiências únicas.
+**Balance Life** é o site oficial de uma empresa especializada em esportes radicais e atividades que promovem o equilíbrio e o movimento. A plataforma oferece informações sobre serviços como slackline, balance board, parkour e recreação em eventos, além de facilitar o contato com a empresa. Desenvolvido com **React, Tailwind CSS e Framer Motion**, o site combina performance, design moderno e interatividade para proporcionar uma experiência única aos usuários.
 
 **Link de Hospedagem:** [https://balance-life.vercel.app/](https://balance-life.vercel.app/)
 
 ---
 
-## Tecnologias Utilizadas
+## Um Pouco Mais Sobre as Tecnologias Utilizadas
 
 ### 1. **React**
 
@@ -21,7 +21,7 @@
 
 ### 3. **Framer Motion**
 
-- Para adicionar interatividade e animações fluidas, Framer Motion foi integrado ao projeto. Ele simplifica a criação de animações complexas, como transições de entrada e hover effects, melhorando a experiência do usuário.
+- Para adicionar interatividade e animações fluidas, Framer Motion foi integrado ao projeto. Ele simplifica a criação de animações, como transições de entrada e hover effects, melhorando a experiência do usuário.
 
 ### 4. **Lucide React**
 
