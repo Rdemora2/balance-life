@@ -96,3 +96,7 @@
 
 4. Acesse o projeto no navegador:
    [http://localhost:5173](http://localhost:5173)
+
+## Licença
+
+Este projeto está licenciado sob a MIT License. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
