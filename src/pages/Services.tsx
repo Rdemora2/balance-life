@@ -1,58 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Activity, Users, Award, Calendar } from "lucide-react";
+import { useServices } from "../contexts/ServicesContext";
 
-// Definindo tipos para os serviços
-interface Service {
-  id: number; // ID agora é um número
-  title: string;
-  icon: React.ElementType;
-  description: string;
-  image: string;
-}
-
-// Lista de serviços
-const services: Service[] = [
-  {
-    id: 1, // ID numérico
-    title: "Slackline",
-    icon: Activity,
-    description:
-      "Desenvolva equilíbrio, força e concentração através da prática do slackline. Aulas para todos os níveis.",
-    image:
-      "https://images.unsplash.com/photo-1516687401797-25297ff1462c?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 2,
-    title: "Balance Board",
-    icon: Users,
-    description:
-      "Treinamento especializado com balance board para melhorar equilíbrio e coordenação motora.",
-    image:
-      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 3,
-    title: "Parkour",
-    icon: Award,
-    description:
-      "Aprenda a se movimentar com eficiência e segurança, superando obstáculos urbanos.",
-    image:
-      "https://images.unsplash.com/photo-1518611507436-f9221403cca2?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 4,
-    title: "Recreação em Eventos",
-    icon: Calendar,
-    description:
-      "Atividades recreativas e esportivas para eventos corporativos, festas e encontros.",
-    image:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80",
-  },
-];
-
-// Variáveis de animação
 const cardVariants = {
   hidden: { opacity: 0, y: 50, scale: 0.95 },
   visible: {
@@ -64,6 +14,9 @@ const cardVariants = {
 };
 
 const Services: React.FC = () => {
+  const { services } = useServices();
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -84,12 +37,9 @@ const Services: React.FC = () => {
         Nossos Serviços
       </motion.h1>
 
-      {/* Grid responsivo aprimorado */}
       <motion.div className="grid sm:grid-cols-1 md:grid-cols-2 gap-12">
         {services.map((service) => {
           const Icon = service.icon;
-          const [isLoaded, setIsLoaded] = useState(false);
-
           return (
             <motion.div
               key={service.id}
@@ -97,11 +47,10 @@ const Services: React.FC = () => {
               whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
             >
               <Link
-                to={`/service/${service.id}`} // Usando ID numérico na rota
+                to={`/service/${service.id}`}
                 className="group block bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
                 aria-label={`Saiba mais sobre ${service.title}`}
               >
-                {/* Imagem com carregamento validado */}
                 <div className="h-64 relative overflow-hidden bg-gray-200">
                   {!isLoaded && (
                     <div className="absolute inset-0 flex items-center justify-center text-gray-400">
@@ -124,7 +73,6 @@ const Services: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Conteúdo padronizado e espaçado */}
                 <div className="p-8 flex flex-col justify-between h-[320px]">
                   <h2 className="text-3xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
                     {service.title}

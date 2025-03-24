@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpCircle, CheckCircle } from "lucide-react";
 import ImageCarousel from "../components/ImageCarousel";
+import { useServices } from "../contexts/ServicesContext";
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -80 },
@@ -32,6 +33,7 @@ const scaleEffect = {
 
 const Home: React.FC = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const { services } = useServices();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,36 +44,6 @@ const Home: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const services = useMemo(
-    () => [
-      {
-        id: "slackline",
-        title: "Slackline",
-        description:
-          "Aprenda a arte do equilíbrio e desenvolva força e concentração. Método progressivo para todas as idades.",
-      },
-      {
-        id: "balance-board",
-        title: "Balance Board",
-        description:
-          "Melhore seu equilíbrio e coordenação com treinos personalizados, ideais para atletas e reabilitação.",
-      },
-      {
-        id: "parkour",
-        title: "Parkour",
-        description:
-          "Supere obstáculos com segurança e desenvolva agilidade e confiança para qualquer desafio urbano.",
-      },
-      {
-        id: "eventos",
-        title: "Recreação em Eventos",
-        description:
-          "Atividades interativas e dinâmicas para eventos corporativos, festas e encontros ao ar livre.",
-      },
-    ],
-    []
-  );
 
   return (
     <div className="min-h-screen">
@@ -166,7 +138,7 @@ const Home: React.FC = () => {
             Nossos Serviços
           </motion.h2>
           <motion.div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
+            {services.map((service) => (
               <motion.div
                 key={service.id}
                 className="bg-white rounded-xl shadow-lg overflow-hidden p-8 hover:shadow-2xl transition-all duration-500"
