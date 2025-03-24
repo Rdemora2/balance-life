@@ -67,6 +67,7 @@ const About: React.FC = () => {
           <div className="order-1 md:order-2">
             <img
               src="https://images.unsplash.com/photo-1518611507436-f9221403cca2?auto=format&w=1000&q=80"
+              loading="lazy"
               alt="Primeiros passos de Gabriel"
               className="rounded-xl shadow-md w-full object-cover h-64"
             />
@@ -84,6 +85,7 @@ const About: React.FC = () => {
           <div>
             <img
               src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&w=1000&q=80"
+              loading="lazy"
               alt="Desenvolvimento da Balance Life"
               className="rounded-xl shadow-md w-full object-cover h-64"
             />
@@ -131,6 +133,7 @@ const About: React.FC = () => {
           <div className="order-1 md:order-2">
             <img
               src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&w=1000&q=80"
+              loading="lazy"
               alt="Missão da Balance Life"
               className="rounded-xl shadow-md w-full object-cover h-64"
             />
