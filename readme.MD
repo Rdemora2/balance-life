@@ -2,7 +2,7 @@
 
 ![Balance Life](https://i.ibb.co/7NG7tRcN/print.jpg)
 
-**Balance Life** é o site oficial de uma empresa especializada em esportes radicais e atividades que promovem o equilíbrio e o movimento. A plataforma oferece informações sobre serviços como slackline, balance board, parkour e recreação em eventos, além de facilitar o contato com a empresa. Desenvolvido com **React, Tailwind CSS e Framer Motion**, o site combina performance, design moderno e interatividade para proporcionar uma experiência única aos usuários.
+**Balance Life** é o site oficial de uma empresa especializada em esportes radicais e atividades que promovem o equilíbrio e o movimento. A plataforma oferece informações sobre serviços como slackline, balance board, parkour e recreação em eventos, além de facilitar o contato com a empresa. Desenvolvido com **React, Tailwind CSS, Framer Motion e Zod**, o site combina performance, design moderno e interatividade para proporcionar uma experiência única aos usuários.
 
 **Link de Hospedagem:** [https://balance-life.vercel.app/](https://balance-life.vercel.app/)
 
@@ -12,22 +12,27 @@
 
 ### 1. **React**
 
-- React foi a escolha principal para o desenvolvimento da interface do usuário devido à sua eficiência e flexibilidade. A componentização permite a reutilização de código e facilita a manutenção, enquanto o gerenciamento de estado com hooks (`useState`, `useEffect`, `useCallback`, `useRef`) torna a aplicação dinâmica e responsiva.
-- Ferramentas como **React Router** foram utilizadas para gerenciar a navegação entre páginas, enquanto **React.memo** ajudou a otimizar a performance, evitando rerenders desnecessários.
+- React foi a escolha principal para o desenvolvimento da interface do usuário devido à sua eficiência e flexibilidade. A componentização permite a reutilização de código e facilita a manutenção.
+- React Router foi utilizado para gerenciar a navegação entre páginas.
+- Context API foi implementado para gerenciar o estado global dos serviços, facilitando o acesso aos dados em toda a aplicação.
 
 ### 2. **Tailwind CSS**
 
 - Tailwind CSS foi escolhido pela sua abordagem utilitária, que permite criar interfaces responsivas e estilizadas diretamente no arquivo TSX. Isso agiliza o desenvolvimento e mantém o código CSS consistente e organizado.
 
-### 3. **Framer Motion**
+### 3. **Zod**
+
+- Zod foi utilizado para validação de dados, garantindo que os dados dos serviços estejam corretos e consistentes. Ele oferece uma API simples e poderosa para definir schemas e validar objetos.
+
+### 4. **Framer Motion**
 
 - Para adicionar interatividade e animações fluidas, Framer Motion foi integrado ao projeto. Ele simplifica a criação de animações, como transições de entrada e hover effects, melhorando a experiência do usuário.
 
-### 4. **Lucide React**
+### 5. **Lucide React**
 
 - A biblioteca Lucide React foi utilizada para ícones modernos e leves, que se integram perfeitamente ao design minimalista da plataforma.
 
-### 5. **Vercel**
+### 6. **Vercel**
 
 - A hospedagem foi feita na Vercel, que oferece integração contínua com o repositório Git, deploy rápido e performance otimizada. É uma solução ideal para projetos React.
 
