@@ -49,7 +49,12 @@ export default defineConfig({
   ],
   optimizeDeps: {
     include: ["react", "react-dom", "react-router-dom", "framer-motion"],
-    exclude: ["lucide-react"],
+    exclude: [
+      "lucide-react",
+      "@react-three/fiber",
+      "@react-three/drei",
+      "three",
+    ],
   },
   build: {
     target: "esnext",
