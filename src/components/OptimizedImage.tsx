@@ -8,6 +8,7 @@ interface OptimizedImageProps {
   width?: number;
   height?: number;
   loading?: "lazy" | "eager";
+  critical?: boolean;
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -17,6 +18,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   width,
   height,
   loading = "lazy",
+  critical = false,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -45,6 +47,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         width={width}
         height={height}
         loading={loading}
+        data-critical={critical}
         className={`w-full h-full object-cover transition-opacity duration-500 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
