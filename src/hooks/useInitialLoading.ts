@@ -1,30 +1,62 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export const useInitialLoading = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [resourcesLoaded, setResourcesLoaded] = useState(false);
+
+  const checkResourcesLoaded = useCallback(() => {
+    // Verifica apenas imagens críticas
+    const criticalImages = document.querySelectorAll(
+      "img[data-critical='true']"
+    );
+    const allCriticalImagesLoaded = Array.from(criticalImages).every(
+      (img) =>
+        (img as HTMLImageElement).complete &&
+        (img as HTMLImageElement).naturalHeight !== 0
+    );
+
+    return allCriticalImagesLoaded;
+  }, []);
 
   useEffect(() => {
-    // Simula um tempo mínimo de carregamento para evitar flash
-    const minLoadingTime = 1500;
+    let mounted = true;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-    // Verifica se todos os recursos críticos foram carregados
-    const checkResourcesLoaded = () => {
-      const images = document.querySelectorAll("img");
-      const allImagesLoaded = Array.from(images).every(
-        (img) => img.complete && img.naturalHeight !== 0
-      );
+    const initializeLoading = async () => {
+      // Tempo mínimo de carregamento para evitar flash
+      const minLoadingTime = 1000;
 
-      return allImagesLoaded;
+      // Verifica recursos críticos
+      const checkResources = () => {
+        if (!mounted) return;
+
+        const loaded = checkResourcesLoaded();
+        setResourcesLoaded(loaded);
+
+        if (loaded) {
+          timeoutId = setTimeout(() => {
+            if (mounted) {
+              setIsLoading(false);
+            }
+          }, minLoadingTime);
+        } else {
+          // Continua verificando se os recursos ainda não foram carregados
+          requestAnimationFrame(checkResources);
+        }
+      };
+
+      checkResources();
     };
 
-    const timer = setTimeout(() => {
-      if (checkResourcesLoaded()) {
-        setIsLoading(false);
-      }
-    }, minLoadingTime);
+    initializeLoading();
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      mounted = false;
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [checkResourcesLoaded]);
 
   return isLoading;
 };
