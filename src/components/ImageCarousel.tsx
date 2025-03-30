@@ -72,6 +72,7 @@ const ImageCarousel: React.FC = () => {
             height={image.height}
             className="w-full h-full"
             loading={index === 0 ? "eager" : "lazy"}
+            critical={index === 0}
             aria-hidden={index !== currentImage}
           />
         </div>
