@@ -1,5 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { ServicesProvider } from "./contexts/ServicesContext";
+import ErrorBoundary from "./components/ErrorBoundary";
+import ResourcePreloader from "./components/ResourcePreloader";
+import CacheManager from "./components/CacheManager";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -8,25 +12,43 @@ import ServiceDetail from "./pages/ServiceDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
+// Recursos críticos para pré-carregar
+const criticalResources = {
+  images: [
+    "/images/hero.jpg",
+    "/images/logo.png",
+    // Adicione outras imagens críticas aqui
+  ],
+  fonts: [
+    // Adicione suas fontes aqui
+  ],
+};
+
 function App() {
   return (
-    <ServicesProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50 flex flex-col">
-          <Navbar />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/service/:id" element={<ServiceDetail />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </ServicesProvider>
+    <ErrorBoundary>
+      <HelmetProvider>
+        <ServicesProvider>
+          <Router>
+            <ResourcePreloader {...criticalResources} />
+            <CacheManager />
+            <div className="min-h-screen bg-gray-50 flex flex-col">
+              <Navbar />
+              <main className="flex-grow">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/service/:id" element={<ServiceDetail />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          </Router>
+        </ServicesProvider>
+      </HelmetProvider>
+    </ErrorBoundary>
   );
 }
 
