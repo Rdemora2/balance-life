@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface OptimizedImageProps {
   src: string;
@@ -7,14 +7,16 @@ interface OptimizedImageProps {
   className?: string;
   width?: number;
   height?: number;
+  loading?: "lazy" | "eager";
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
   alt,
-  className = '',
+  className = "",
   width,
-  height
+  height,
+  loading = "lazy",
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -42,9 +44,9 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         alt={alt}
         width={width}
         height={height}
-        loading="lazy"
+        loading={loading}
         className={`w-full h-full object-cover transition-opacity duration-500 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
+          isLoaded ? "opacity-100" : "opacity-0"
         }`}
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
@@ -54,4 +56,4 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   );
 };
 
-export default OptimizedImage; 
+export default OptimizedImage;

@@ -1,16 +1,38 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import OptimizedImage from "./OptimizedImage";
 
 const images = [
-  "https://i.ibb.co/BVTpZxvF/Imagem-do-Whats-App-de-2025-02-21-s-22-11-12-1527fdbd.jpg",
-  "https://i.ibb.co/RWkHqDd/buda.jpg",
-  "https://i.ibb.co/qF1CwKBj/Imagem-do-Whats-App-de-2025-02-21-s-22-11-10-b65b045c.jpg",
+  {
+    src: "https://i.ibb.co/BVTpZxvF/Imagem-do-WhatsApp-de-2025-02-21-s-22-11-12-1527fdbd.jpg",
+    alt: "Slide 1",
+    width: 1920,
+    height: 1080,
+  },
+  {
+    src: "https://i.ibb.co/RWkHqDd/buda.jpg",
+    alt: "Slide 2",
+    width: 1920,
+    height: 1080,
+  },
+  {
+    src: "https://i.ibb.co/qF1CwKBj/Imagem-do-WhatsApp-de-2025-02-21-s-22-11-10-b65b045c.jpg",
+    alt: "Slide 3",
+    width: 1920,
+    height: 1080,
+  },
 ];
 
 const ImageCarousel: React.FC = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Pré-carrega a primeira imagem
+  useEffect(() => {
+    const img = new Image();
+    img.src = images[0].src;
+  }, []);
 
   const nextSlide = useCallback(() => {
     setCurrentImage((prev) => (prev + 1) % images.length);
@@ -37,16 +59,22 @@ const ImageCarousel: React.FC = () => {
       aria-label="Carrossel de imagens"
     >
       {images.map((image, index) => (
-        <img
+        <div
           key={index}
-          src={image}
-          alt={`Slide ${index + 1}`}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
             index === currentImage ? "opacity-100" : "opacity-0"
           }`}
-          loading="lazy"
-          aria-hidden={index !== currentImage}
-        />
+        >
+          <OptimizedImage
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            className="w-full h-full"
+            loading={index === 0 ? "eager" : "lazy"}
+            aria-hidden={index !== currentImage}
+          />
+        </div>
       ))}
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent pointer-events-none z-10"></div>
