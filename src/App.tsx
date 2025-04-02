@@ -20,11 +20,9 @@ const criticalResources = {
     "https://i.ibb.co/BVTpZxvF/Imagem-do-WhatsApp-de-2025-02-21-s-22-11-12-1527fdbd.jpg",
     "https://i.ibb.co/RWkHqDd/buda.jpg",
     "https://i.ibb.co/qF1CwKBj/Imagem-do-WhatsApp-de-2025-02-21-s-22-11-10-b65b045c.jpg",
-    "/images/hero.jpg",
-    "/images/logo.png",
   ],
   fonts: [
-    // Adicione suas fontes aqui
+    // Adicione fontes aqui, caso necessário
   ],
 };
 
