@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
+import slide1 from "/images/slide1.webp";
+import slide2 from "/images/slide2.webp";
+import slide3 from "/images/slide3.webp";
 
 const images = [
   {
-    src: "https://i.ibb.co/BVTpZxvF/Imagem-do-WhatsApp-de-2025-02-21-s-22-11-12-1527fdbd.jpg",
+    src: slide1,
     alt: "Slide 1",
     width: 1920,
     height: 1080,
   },
   {
-    src: "https://i.ibb.co/RWkHqDd/buda.jpg",
+    src: slide2,
     alt: "Slide 2",
     width: 1920,
     height: 1080,
   },
   {
-    src: "https://i.ibb.co/qF1CwKBj/Imagem-do-WhatsApp-de-2025-02-21-s-22-11-10-b65b045c.jpg",
+    src: slide3,
     alt: "Slide 3",
     width: 1920,
     height: 1080,
@@ -70,7 +73,7 @@ const ImageCarousel: React.FC = () => {
             alt={image.alt}
             width={image.width}
             height={image.height}
-            className="w-full h-full"
+            className="w-full h-full object-cover"
             loading={index === 0 ? "eager" : "lazy"}
             critical={index === 0}
             aria-hidden={index !== currentImage}
